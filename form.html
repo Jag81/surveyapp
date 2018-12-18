@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tutorial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://surveyjs.azureedge.net/1.0.48/survey.jquery.min.js"></script>
+</head>
+
+<body>
+    <div style="padding:50px">
+        <div id="app">
+            <h2>{{ message }}</h2>
+        </div>
+        <div id="surveyContainer"></div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Online Questionnaire'
+            }
+        })
+        Survey.Survey.cssType = "bootstrap";
+        var surveyJSON =
+
+        {
+            "pages": [
+                {
+                    "name": "save_data_1",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "name": "question1"
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "question3",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "question2",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+
+        function sendDataToServer(survey) {
+
+            alert("The results are:" + JSON.stringify(survey.data) + ". The results can be sent to a API server and save to a database.");
+
+alert(111)
+
+            var form_data = { "request": "save_data_1", sdata: survey.data };
+            $.ajax({
+                headers: {},
+                type: "POST",
+                url: "http://127.0.0.1:3000",
+                contentType: "application/json",
+                charset: "utf-8",
+                dataType: "json",
+                error: function (jqXHR, error, errorThrown) { if (jqXHR.status) { alert(jqXHR.responseText); } else { alert("Something went wrong"); } },
+                data: JSON.stringify(form_data),
+                success: function (c, textStatus, request) {
+                    alert("So good")
+                },
+            })
+
+
+
+        }
+        var survey = new Survey.Model(surveyJSON);
+        $("#surveyContainer").Survey({
+            model: survey,
+            onComplete: sendDataToServer
+        });
+    </script>
+    <style>
+        body {
+            background-color: #dbecec;
+        }
+    </style>
+</body>
+
+</html>

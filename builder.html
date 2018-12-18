@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <script src= surveyjs/surveyeditor_1.0.59/knockout-min.js></script>
+    <link href=  surveyjs/surveyeditor_1.0.59/surveyeditor.css type="text/css" rel="stylesheet" />
+    <script src= surveyjs/surveyeditor_1.0.59/survey.ko.min.js></script>
+    <script src="https://surveyjs.azureedge.net/1.0.59/surveyeditor.min.js"></script>
+    <link href=  surveyjs/surveyeditor_1.0.59/bootstrap.min.css type="text/css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div id="surveyEditorContainer"></div>
+        <script>
+            var editorOptions = { showEmbededSurveyTab: true }; //see examples below
+            var survey = new SurveyEditor.SurveyEditor("surveyEditorContainer", editorOptions);
+            //set function on save callback
+            editor.saveSurveyFunc = saveMySurvey;
+        </script>
+</body>
+</html>
